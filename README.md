@@ -19,6 +19,17 @@ Wi-Fi Aware.
   [CI run](https://github.com/aman99dex/relaymesh/actions) and install it on your phone.
 - **Develop:** open the folder in Android Studio and run `app`. Core tests: `./gradlew :core:test`.
 
+### From the command line (Windows)
+Needs JDK 17 (`JAVA_HOME`) and the Android SDK (`ANDROID_HOME`, or `sdk.dir` in `local.properties`).
+```powershell
+.\gradlew :core:test :app:assembleDebug                     # tests + APK
+emulator -avd <name> -camera-back webcam0                   # webcam acts as the emulator's camera
+adb install -r app\build\outputs\apk\debug\app-debug.apk
+adb shell am start -n io.github.aman99dex.relaymesh/.MainActivity
+```
+Screenshots of the app come out black on purpose (`FLAG_SECURE`). To inspect the screen, use
+`adb exec-out uiautomator dump /dev/tty`.
+
 ## Docs
 - [Architecture](docs/ARCHITECTURE.md)
 - [Decision records](docs/adr): why Kotlin, envelope-first, the crypto stack, Nostr/WebRTC, AGPL
